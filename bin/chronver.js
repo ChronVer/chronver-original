@@ -38,7 +38,8 @@ function failIncrement() {
 }
 
 function help() {
-  console.log(["ChronVer " + version,
+  // npm uses SemVer and that makes ChronVer not display correctly
+  console.log(["ChronVer " + String(version).replace("-", ""),
     "",
     // "................................................................................", // 80 characters
     "A JavaScript implementation of the https://chronver.org specification",
@@ -62,9 +63,6 @@ function help() {
     "",
     "--init --initialize",
     "        Creates a ChronVer string, defaulting to the present.",
-    "",
-    "Program exits successfully if any valid version satisfies all supplied ranges, and",
-    "prints all satisfying versions.",
     "",
     "If no satisfying versions are found, then exits failure."
     // "................................................................................", // 80 characters
