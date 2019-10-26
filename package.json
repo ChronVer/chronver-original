@@ -4,10 +4,13 @@
     "name": "netop://ウエハ",
     "url": "https://webb.page"
   },
+  "bin": {
+    "chronver": "./bin/chronver.js"
+  },
   "dependencies": {
     "chronver-regex": "^2019.10.25"
   },
-  "description": "ChronVer versioner",
+  "description": "The chronological versioner",
   "devDependencies": {
     "@babel/cli": "^7.6.4",
     "@babel/node": "^7.6.3",
@@ -65,5 +68,5 @@
       "lib/*"
     ]
   },
-  "version": "2019.10.25"
+  "version": "2019.10.25.1"
 }
