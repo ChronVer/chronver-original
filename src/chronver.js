@@ -39,11 +39,13 @@ function ChronVer(version: string) {
 
   this.raw = version;
 
-  // $FlowFixMe: I have no idea how to make Flow like this line
-  const regexMatches = version.trim().match(chronverRegex())[0].split(".");
+  const regexMatches = version.trim().match(chronverRegex()) ?
+    // $FlowFixMe: I have no idea how to make Flow like this line
+    version.trim().match(chronverRegex())[0].split(".") :
+    null;
 
   if (!regexMatches)
-    throw new TypeError("Invalid Version: " + version);
+    return regexMatches;
 
   this.year = +regexMatches[0];
   this.month = +regexMatches[1];

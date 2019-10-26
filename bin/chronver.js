@@ -46,11 +46,11 @@ function help() {
     "Copyright © netop://ウエハ (Paul Anthony Webb)",
     "",
     "Usage: chronver [options] <version> [<version> [...]]",
-    "Prints valid versions sorted by ChronVer precedence",
+    "Prints valid ChronVer versions",
     "",
     "Options:",
     "-c --coerce",
-    "        Coerce a string into ChronVer if possible.",
+    "        Coerce a string into ChronVer if possible, silently fail otherwise.",
     "",
     "-? -h --help",
     "        Show this help message.",
@@ -61,10 +61,16 @@ function help() {
     "",
     "        Only one version may be specified.",
     "",
+    "        The version returned will always default to the present. However,",
+    "        supplied versions with a future date will remain in the future.",
+    "",
+    "        ex. Passing \"1970.01.01 -i month\" to ChronVer will return the present",
+    "        date but passing \"3027.04.03 -i month\" will return \"3027.05.03\".",
+    "",
     "--init --initialize",
     "        Creates a ChronVer string, defaulting to the present.",
     "",
-    "This CLI exits upon failure."
+    "ChronVer exits upon failure."
     // "................................................................................", // 80 characters
   ].join("\n"));
 }

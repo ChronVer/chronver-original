@@ -33,11 +33,11 @@ A JavaScript implementation of the https://chronver.org specification
 Copyright © netop://ウエハ (Paul Anthony Webb)
 
 Usage: chronver [options] <version> [<version> [...]]
-Prints valid versions sorted by ChronVer precedence
+Prints valid ChronVer versions
 
 Options:
 -c --coerce
-        Coerce a string into ChronVer if possible.
+        Coerce a string into ChronVer if possible, silently fail otherwise.
 
 -? -h --help
         Show this help message.
@@ -57,7 +57,7 @@ Options:
 --init --initialize
         Creates a ChronVer string, defaulting to the present.
 
-This CLI exits upon failure.
+ChronVer exits upon failure.
 ```
 
 ## API
