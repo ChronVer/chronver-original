@@ -43,7 +43,7 @@ function help() {
     "",
     // "................................................................................", // 80 characters
     "A JavaScript implementation of the https://chronver.org specification",
-    "Copyright Paul Anthony Webb",
+    "Copyright © netop://ウエハ (Paul Anthony Webb)",
     "",
     "Usage: chronver [options] <version> [<version> [...]]",
     "Prints valid versions sorted by ChronVer precedence",
@@ -64,7 +64,7 @@ function help() {
     "--init --initialize",
     "        Creates a ChronVer string, defaulting to the present.",
     "",
-    "If no satisfying versions are found, then exits failure."
+    "This CLI exits upon failure."
     // "................................................................................", // 80 characters
   ].join("\n"));
 }
@@ -141,12 +141,13 @@ function main() {
 }
 
 function success(versions) {
-  versions
+  return versions
     .map(version => increment ?
       chronver.increment(version, increment) :
       version
     )
     .forEach(version => {
       console.log(version);
+      return version;
     });
 }

@@ -80,11 +80,18 @@ ChronVer.prototype.format = function() {
 };
 
 ChronVer.prototype.increment = function(incrementType: string) {
-  if (
-    this.year < +new Date().getFullYear() ||
-    this.month < +new Date().getMonth() + 1 ||
-    this.day < +new Date().getDate()
-  ) return initialize(); // Update old version to present
+  switch(true) {
+    // Supplied year is less than current year
+    // Supplied year is current but supplied month is less than current month
+    // Supplied year and month are current but supplied day is less than current day
+    case this.year < +new Date().getFullYear():
+    case this.year === +new Date().getFullYear() && this.month < +new Date().getMonth() + 1:
+    case this.year === +new Date().getFullYear() && this.month === +new Date().getMonth() + 1 && this.day < +new Date().getDate():
+      return initialize(); // Update old version to present
+
+    default:
+      break;
+  }
 
   switch(incrementType) {
     case "day":
