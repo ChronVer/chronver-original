@@ -100,6 +100,7 @@ function main() {
           case "change":
           case "day":
           case "month":
+          case "package":
           case "year":
             increment = argumentValues.shift();
             break;
@@ -129,6 +130,9 @@ function main() {
     (chronver.coerce(version) || { version }).version :
     version
   ).filter(version => chronver.valid(version));
+
+  if (increment === "package")
+    return chronver.increment("", increment);
 
   if (!versions.length)
     return fail();

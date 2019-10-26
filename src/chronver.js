@@ -2,14 +2,20 @@
 
 
 
-//  P A C K A G E
+//  N A T I V E
+
+const { readFileSync, writeFileSync } = require("fs");
+
+//  P A C K A G E S
 
 const chronverRegex = require("chronver-regex");
+const rootModule = require("root-module");
 
 //  U T I L S
 
 const MAX_LENGTH = 256;
 const MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;
+const rootDirectory = rootModule();
 
 //  E X P O R T S
 
@@ -86,6 +92,19 @@ ChronVer.prototype.coerce = function(version: ?string) {
 };
 
 ChronVer.prototype.increment = function(incrementType: string) {
+  const { packageFile } = rootDirectory;
+
+  if (incrementType === "package") {
+    // $FlowFixMe: Flow does not like "readFileSync".
+    const { change, day, month, raw, year } = parse(JSON.parse(readFileSync(packageFile)).version);
+
+    this.change = change;
+    this.day = day;
+    this.month = month;
+    this.raw = raw;
+    this.year = year;
+  }
+
   switch(true) {
     // Supplied year is less than current year
     // Supplied year is current but supplied month is less than current month
@@ -114,6 +133,7 @@ ChronVer.prototype.increment = function(incrementType: string) {
 
     default:
     case "change":
+    case "package":
       if (typeof this.change === "number")
         this.change++;
       // TODO: Account for "change" being a string
@@ -122,6 +142,15 @@ ChronVer.prototype.increment = function(incrementType: string) {
 
   this._format();
   this.raw = this.version;
+
+  if (packageFile) {
+    // $FlowFixMe: Flow does not like "readFileSync".
+    const packageFileData = JSON.parse(readFileSync(packageFile));
+
+    packageFileData.version = this.version;
+    // Update version in package.json and make it pretty
+    writeFileSync(packageFile, JSON.stringify(packageFileData, null, 2) + "\r\n");
+  }
 
   return this;
 };

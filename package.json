@@ -8,7 +8,8 @@
     "chronver": "./bin/chronver.js"
   },
   "dependencies": {
-    "chronver-regex": "^2019.10.25"
+    "chronver-regex": "^2019.10.25",
+    "root-module": "0.0.3"
   },
   "description": "The chronological versioner",
   "devDependencies": {
@@ -37,7 +38,7 @@
   ],
   "husky": {
     "hooks": {
-      "pre-commit": "npm run format && npm run test && git add -A :/"
+      "pre-commit": "npm run format && npm run test && npm run increment && git add -A :/"
     }
   },
   "keywords": [
@@ -58,6 +59,7 @@
   "scripts": {
     "build": "babel src/ --out-dir lib/",
     "format": "eslint . --fix",
+    "increment": "node bin/chronver.js --increment package",
     "test": "npm run build && run-s test:*",
     "test:dependencies": "updates --update ./",
     "test:flow": "flow",
@@ -68,5 +70,5 @@
       "lib/*"
     ]
   },
-  "version": "2019.10.26.5"
+  "version": "2019.10.26.6"
 }
