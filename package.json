@@ -52,7 +52,7 @@
     "versions"
   ],
   "license": "MIT",
-  "main": "src/chronver.js",
+  "main": "lib/chronver.js",
   "name": "chronver",
   "repository": "https://code.webb.page/ChronVer/chronver",
   "scripts": {
@@ -68,5 +68,5 @@
       "lib/*"
     ]
   },
-  "version": "2019.10.26.2"
+  "version": "2019.10.26.3"
 }
