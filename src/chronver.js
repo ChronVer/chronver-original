@@ -68,10 +68,10 @@ function ChronVer(version: string) {
   if (+this.change > MAX_SAFE_INTEGER || +this.change < 0)
     throw new TypeError("Invalid change version");
 
-  return this.format();
+  return this._format();
 }
 
-ChronVer.prototype.format = function() {
+ChronVer.prototype._format = function() {
   this.version =
     this.year + "." +
     processMonth(this.month) + "." +
@@ -79,6 +79,10 @@ ChronVer.prototype.format = function() {
     processChange(this.change);
 
   return this.version;
+};
+
+ChronVer.prototype.coerce = function(version: ?string) {
+  return coerce(version);
 };
 
 ChronVer.prototype.increment = function(incrementType: string) {
@@ -116,10 +120,14 @@ ChronVer.prototype.increment = function(incrementType: string) {
       break;
   }
 
-  this.format();
+  this._format();
   this.raw = this.version;
 
   return this;
+};
+
+ChronVer.prototype.initialize = function() {
+  return initialize();
 };
 
 

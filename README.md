@@ -12,22 +12,30 @@ $ npm i chronver
 
 ## Usage
 
-```js
-// ES6
-import chronver from "chronver";
-```
+Node.js:
 
 ```js
-// ES5
-const chronver = require("chronver");
+import chronver from "chronver";
+
+chronver("2019.10.26").increment();
+// => 2019.10.26.1
+
+chronver("2019.10.26").increment("year");
+// => 2020.10.26
+
+chronver("2019.10.26").increment("month");
+// => 2019.11.26
+
+chronver("2019.10.26").increment("day");
+// => 2019.10.27
 ```
 
 Command-line interface:
 
-```console
+```shell
 $ chronver --help
 
-ChronVer 2019.10.26.3
+ChronVer 2019.10.26.4
 
 A JavaScript implementation of the https://chronver.org specification
 Copyright © netop://ウエハ (Paul Anthony Webb)
