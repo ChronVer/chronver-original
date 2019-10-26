@@ -1,0 +1,9 @@
+{
+  extends: [
+    "@inc",
+    "plugin:flowtype/recommended"
+  ],
+  plugins: [
+    "flowtype"
+  ]
+}

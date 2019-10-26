@@ -1,0 +1,9 @@
+# OS garbage
+.DS_Store
+Thumbs.db
+
+# Files
+package-lock.json
+
+# Folders
+node_modules

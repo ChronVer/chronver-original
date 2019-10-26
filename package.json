@@ -1,0 +1,69 @@
+{
+  "author": {
+    "email": "paul+code@webb.page",
+    "name": "netop://ウエハ",
+    "url": "https://webb.page"
+  },
+  "dependencies": {
+    "chronver-regex": "^2019.10.25"
+  },
+  "description": "ChronVer versioner",
+  "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/preset-flow": "^7.0.0",
+    "@inc/eslint-config": "^2019.10.22",
+    "ava": "^2.4.0",
+    "babel-eslint": "^10.0.3",
+    "babel-preset-minify": "^0.5.1",
+    "eslint": "^6.6.0",
+    "eslint-plugin-flowtype": "^4.3.0",
+    "flow-bin": "^0.110.1",
+    "husky": "^3.0.9",
+    "npm-run-all": "^4.1.5",
+    "snazzy": "^8.0.0",
+    "standardx": "^5.0.0",
+    "updates": "^9.0.1"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "files": [
+    "bin/chronver.js",
+    "lib/chronver.js"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run format && npm run test && git add -A :/"
+    }
+  },
+  "keywords": [
+    "chronologic",
+    "chronver",
+    "date",
+    "match",
+    "matching",
+    "regex",
+    "regexp",
+    "version",
+    "versions"
+  ],
+  "license": "MIT",
+  "main": "bin/chronver.js",
+  "name": "chronver",
+  "repository": "https://code.webb.page/ChronVer/chronver",
+  "scripts": {
+    "build": "babel src/ --out-dir lib/",
+    "format": "eslint . --fix",
+    "test": "npm run build && run-s test:*",
+    "test:dependencies": "updates --update ./",
+    "test:flow": "flow",
+    "test:lint": "standardx --verbose | snazzy"
+  },
+  "standardx": {
+    "ignore": [
+      "lib/*"
+    ]
+  },
+  "version": "2019.10.25"
+}
