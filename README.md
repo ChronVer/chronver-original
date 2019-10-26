@@ -17,17 +17,23 @@ Node.js:
 ```js
 import chronver from "chronver";
 
-chronver("2019.10.26").increment();
+chronver("2019.10.26").increment().version;
 // => 2019.10.26.1
 
-chronver("2019.10.26").increment("year");
+chronver("2019.10.26").increment("year").version;
 // => 2020.10.26
 
-chronver("2019.10.26").increment("month");
+chronver("2019.10.26").increment("month").version;
 // => 2019.11.26
 
-chronver("2019.10.26").increment("day");
+chronver("2019.10.26").increment("day").version;
 // => 2019.10.27
+
+chronver("").coerce("2019.1.6").version;
+// => 2019.01.06
+
+chronver("").initialize().version;
+// => The current date in ChronVer format
 ```
 
 Command-line interface:
@@ -35,7 +41,7 @@ Command-line interface:
 ```shell
 $ chronver --help
 
-ChronVer 2019.10.26.4
+ChronVer 2019.10.26.5
 
 A JavaScript implementation of the https://chronver.org specification
 Copyright © netop://ウエハ (Paul Anthony Webb)
@@ -67,8 +73,6 @@ Options:
 
 ChronVer exits upon failure.
 ```
-
-## API
 
 ## Versions
 
