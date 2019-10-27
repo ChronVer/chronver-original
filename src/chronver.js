@@ -92,11 +92,14 @@ ChronVer.prototype.coerce = function(version: ?string) {
 
 ChronVer.prototype.increment = function(incrementType: string) {
   let packageFile = null;
+  let packageFileData: any = null;
 
   if (incrementType === "package") {
     packageFile = appRoot.resolve("/package.json");
     // $FlowFixMe: Flow does not like "readFileSync".
-    const { change, day, month, raw, year } = parse(JSON.parse(readFileSync(packageFile)).version);
+    packageFileData = JSON.parse(readFileSync(packageFile));
+    // $FlowFixMe: Flow does not like "readFileSync".
+    const { change, day, month, raw, year } = parse(packageFileData.version);
 
     this.change = change;
     this.day = day;
@@ -112,6 +115,12 @@ ChronVer.prototype.increment = function(incrementType: string) {
     case this.year < +new Date().getFullYear():
     case this.year === +new Date().getFullYear() && this.month < +new Date().getMonth() + 1:
     case this.year === +new Date().getFullYear() && this.month === +new Date().getMonth() + 1 && this.day < +new Date().getDate():
+      if (packageFile) {
+        packageFileData.version = initialize().version;
+        // Update version in package.json and make it pretty
+        writeFileSync(packageFile, JSON.stringify(packageFileData, null, 2) + "\r\n");
+      }
+
       return initialize(); // Update old version to present
 
     default:
@@ -144,9 +153,6 @@ ChronVer.prototype.increment = function(incrementType: string) {
   this.raw = this.version;
 
   if (packageFile) {
-    // $FlowFixMe: Flow does not like "readFileSync".
-    const packageFileData = JSON.parse(readFileSync(packageFile));
-
     packageFileData.version = this.version;
     // Update version in package.json and make it pretty
     writeFileSync(packageFile, JSON.stringify(packageFileData, null, 2) + "\r\n");
