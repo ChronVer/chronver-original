@@ -5,10 +5,12 @@
 
 
 
-//  U T I L S
+//  M O D U L E S
 
 const chronver = require("../lib/chronver");
 const { version } = require("../package.json");
+
+//  U T I L S
 
 const argumentValues = process.argv.slice(2);
 const range = [];
@@ -64,7 +66,7 @@ function help() {
     "        The version returned will always default to the present. However,",
     "        supplied versions with a future date will remain in the future.",
     "",
-    "        ex. Passing \"1970.01.01 -i month\" to ChronVer will return the present",
+    "        ex. Passing \"1970.04.03 -i month\" to ChronVer will return the present",
     "        date but passing \"3027.04.03 -i month\" will return \"3027.05.03\".",
     "",
     "--init --initialize",

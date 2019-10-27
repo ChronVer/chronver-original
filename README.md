@@ -12,36 +12,59 @@ $ npm i chronver
 
 ## Usage
 
-Node.js:
+### Node.js:
 
 ```js
 import chronver from "chronver";
 
-chronver("2019.10.26").increment().version;
-// => 2019.10.26.1
+chronver("2019.04.03").increment().version; // or
+chronver("2019.04.03").increment("change").version;
+// => 2019.04.03.1
 
-chronver("2019.10.26").increment("year").version;
-// => 2020.10.26
+chronver("2019.04.03").increment("year").version;
+// => 2020.04.03
 
-chronver("2019.10.26").increment("month").version;
-// => 2019.11.26
+chronver("2019.04.03").increment("month").version;
+// => 2019.05.03
 
-chronver("2019.10.26").increment("day").version;
-// => 2019.10.27
+chronver("2019.04.03").increment("day").version;
+// => 2019.04.03
 
-chronver("").coerce("2019.1.6").version;
-// => 2019.01.06
+chronver("").coerce("2019.4.3").version;
+// => 2019.04.03
 
 chronver("").initialize().version;
 // => The current date in ChronVer format
 ```
 
-Command-line interface:
+### package.json:
+
+```json
+{
+  "scripts": {
+    "increment": "chronver --increment package"
+  }
+}
+```
+
+This allows you to run `npm run increment` and have your `package.json` version incremented to ChronVer's spec automatically. However if you want to have this happen automatically when committing to a repo, employ [husky](https://github.com/typicode/husky) like so:
+
+```json
+{
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run increment && git add -A :/"
+    }
+  }
+}
+```
+
+### Command-line interface:
 
 ```shell
 $ chronver --help
 
-ChronVer 2019.10.26.7
+ChronVer 2019.10.27.1
 
 A JavaScript implementation of the https://chronver.org specification
 Copyright © netop://ウエハ (Paul Anthony Webb)
@@ -65,7 +88,7 @@ Options:
         The version returned will always default to the present. However,
         supplied versions with a future date will remain in the future.
 
-        ex. Passing "1970.01.01 -i month" to ChronVer will return the present
+        ex. Passing "1970.04.03 -i month" to ChronVer will return the present
         date but passing "3027.04.03 -i month" will return "3027.05.03".
 
 --init --initialize
