@@ -41,7 +41,7 @@ Command-line interface:
 ```shell
 $ chronver --help
 
-ChronVer 2019.10.26.6
+ChronVer 2019.10.26.7
 
 A JavaScript implementation of the https://chronver.org specification
 Copyright © netop://ウエハ (Paul Anthony Webb)

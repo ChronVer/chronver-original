@@ -8,14 +8,13 @@ const { readFileSync, writeFileSync } = require("fs");
 
 //  P A C K A G E S
 
+const appRoot = require("app-root-path");
 const chronverRegex = require("chronver-regex");
-const rootModule = require("root-module");
 
 //  U T I L S
 
 const MAX_LENGTH = 256;
 const MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;
-const rootDirectory = rootModule();
 
 //  E X P O R T S
 
@@ -92,9 +91,10 @@ ChronVer.prototype.coerce = function(version: ?string) {
 };
 
 ChronVer.prototype.increment = function(incrementType: string) {
-  const { packageFile } = rootDirectory;
+  let packageFile = null;
 
   if (incrementType === "package") {
+    packageFile = appRoot.resolve("/package.json");
     // $FlowFixMe: Flow does not like "readFileSync".
     const { change, day, month, raw, year } = parse(JSON.parse(readFileSync(packageFile)).version);
 

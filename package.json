@@ -8,8 +8,8 @@
     "chronver": "./bin/chronver.js"
   },
   "dependencies": {
-    "chronver-regex": "^2019.10.25",
-    "root-module": "0.0.3"
+    "app-root-path": "^2.2.1",
+    "chronver-regex": "^2019.10.25"
   },
   "description": "The chronological versioner",
   "devDependencies": {
@@ -70,5 +70,5 @@
       "lib/*"
     ]
   },
-  "version": "2019.10.26.6"
+  "version": "2019.10.26.7"
 }
