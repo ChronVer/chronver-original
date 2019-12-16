@@ -101,6 +101,10 @@ ChronVer exits upon failure.
 
 A "version" is described by the specification found at [https://chronver.org](https://chronver.org "Official ChronVer website").
 
+## Note
+
+You may have to set your version to "0000.00.00" prior to initializing ChronVer. This will be fixed an done automatically in a future update.
+
 ## License
 
 MIT © [netop://ウエハ](https://webb.page "Homepage of netop://ウエハ")
