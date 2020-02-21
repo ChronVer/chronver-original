@@ -1,0 +1,10 @@
+# Folders
+@types
+bin
+lib
+test
+
+# Files
+.editorconfig
+todo.txt
+tsconfig.json

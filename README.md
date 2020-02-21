@@ -1,40 +1,52 @@
 # chronver
 
-> The [chronological](https://chronver.org "Official ChronVer website") versioner
+> The [chronological](https://chronver.org "Official ChronVer website") versioner.
 
 
 
 ## Install
 
-```bash
+```sh
 $ npm i chronver
 ```
 
-## Usage
 
-### Node.js:
+
+## Usage
+### Node.js
 
 ```js
 import chronver from "chronver";
 
-chronver("2019.04.03").increment().version; // or
-chronver("2019.04.03").increment("change").version;
-// => 2019.04.03.1
+new chronver({ increment: "change", version: "2030.04.03" }).version;
+// ^ Returns 2030.04.03.1
 
-chronver("2019.04.03").increment("year").version;
-// => 2020.04.03
+new chronver({ increment: "year", version: "2030.04.03" }).version;
+// ^ Returns 2031.04.03
 
-chronver("2019.04.03").increment("month").version;
-// => 2019.05.03
+new chronver({ increment: "month", version: "2030.04.03" }).version;
+// ^ Returns 2030.05.03
 
-chronver("2019.04.03").increment("day").version;
-// => 2019.04.03
+new chronver({ increment: "day", version: "2030.04.03" }).version;
+// ^ Returns 2030.04.04
 
-chronver("").coerce("2019.4.3").version;
-// => 2019.04.03
+new chronver({ coerce: "2030.4.3" }).version;
+// ^ Returns 2030.04.03
 
-chronver("").initialize().version;
-// => The current date in ChronVer format
+new chronver().version;
+// ^ Returns the current date in ChronVer format
+```
+
+```json
+// Here is how a full response looks
+ChronVer {
+  change: 0,
+  day: 3,
+  month: 4,
+  raw: "2030.04.03",
+  version: "2030.04.03",
+  year: 2030
+}
 ```
 
 ### package.json:
@@ -47,7 +59,7 @@ chronver("").initialize().version;
 }
 ```
 
-This allows you to run `npm run increment` and have your `package.json` version incremented to ChronVer's spec automatically. However if you want to have this happen automatically when committing to a repo, employ [husky](https://github.com/typicode/husky) like so:
+This allows you to run `npm run increment` and have your `package.json` version incremented to ChronVer's spec. However if you want to have this happen automatically when committing to a repo, employ [husky](https://github.com/typicode/husky) like so:
 
 ```json
 {
@@ -59,17 +71,61 @@ This allows you to run `npm run increment` and have your `package.json` version 
 }
 ```
 
-### Command-line interface:
+
+
+## API
+### new chronver({ coerce?, increment?, parse?, version? })
+
+ChronVer must be instantiated with the `new` keyword.
+
+#### coerce
+
+Type: `string` (optional)
+
+- Given a string that represents a date, `coerce` will attempt to format it into a ChronVer object.
+- If supplied value is blank (""), a ChronVer object representing today's date will be returned.
+
+#### increment
+
+Type: `string` (optional)
+
+- Intended for use with the `version` parameter.
+- Available options:
+  - `change`: increments supplied `version`...version by one.
+  - `day`: increments supplied `version` year by one.
+  - `month`: increments supplied `version` year by one.
+  - `year`: increments supplied `version` year by one.
+- If supplied value is blank (""):
+- If `version` parameter is not supplied along with an `increment` option:
+- If supplied value is in the past:
+  - A ChronVer object representing today's date will be returned.
+
+#### parse
+
+Type: `string` | `CVType` (optional)
+
+- Given a string that represents a date (or a ChronVer object), `parse` will test the validity of it and return a formatted ChronVer object.
+- If supplied value is blank (""), a ChronVer object representing today's date will be returned.
+
+#### version
+
+- When used alone, behaves like `parse`.
+
+
+
+### CLI
 
 ```shell
-$ chronver --help
-
-ChronVer 2019.10.27.1
+       __
+      / /
+ ____/ /  _______  _____  __________
+/ __/ _ \/ __/ _ \/ _ | |/ / -_/ __/
+\__/_//_/_/  \___/_//_|___/\__/_/
 
 A JavaScript implementation of the https://chronver.org specification
 Copyright © netop://ウエハ (Paul Anthony Webb)
 
-Usage: chronver [options] <version> [<version> [...]]
+Usage: chronver [options] <version>
 Prints valid ChronVer versions
 
 Options:
@@ -95,15 +151,37 @@ Options:
         Creates a ChronVer string, defaulting to the present.
 
 ChronVer exits upon failure.
+
+
+
+Examples:
+$ chronver --initialize
+$ chronver --increment month 2030.03.03
+$ chronver --increment package
 ```
 
-## Versions
 
-A "version" is described by the specification found at [https://chronver.org](https://chronver.org "Official ChronVer website").
 
-## Note
+## Tests
 
-You may have to set your version to "0000.00.00" prior to initializing ChronVer. This will be fixed an done automatically in a future update.
+You will need to first download this repo, `cd` into it, and `npm i` before proceeding further.
+
+```sh
+# Run all tests, sequentially
+$ npm test
+
+# Test dependencies for latest versions
+$ npm run test:dependencies
+
+# Lint "bin" and "lib" directories
+$ npm run test:typescript
+
+# Run this module through its paces
+# PLEASE run this so I can feel my time writing and troubleshooting these tests were worth it
+$ npm run test:assert
+```
+
+
 
 ## License
 

@@ -5,20 +5,26 @@
 
 
 
-//  M O D U L E S
-
-const chronver = require("../lib/chronver");
-const { version } = require("../package.json");
-
 //  U T I L S
 
+import chronver from "../lib";
+import { valid } from "../lib";
+import { version } from "../package.json";
+
 const argumentValues = process.argv.slice(2);
-const range = [];
 
 let coerce = false;
-let increment = null;
+let increment: any = "";
 let initialize = false;
-let versions = [];
+let versions: any[] = [];
+
+const asciiArt = [
+  "       __\n",
+  `      / /              ${new chronver({ coerce: version }).version}\n`,
+  " ____/ /  _______  _____  __________\n",
+  "/ __/ _ \\/ __/ _ \\/ _ | |/ / -_/ __/\n",
+  "\\__/_//_/_/  \\___/_//_|___/\\__/_/\n"
+].join("");
 
 
 
@@ -35,19 +41,18 @@ function fail() {
 }
 
 function failIncrement() {
-  console.error("Incrementing can only happen on a single version");
+  process.stdout.write("Incrementing can only happen on a single version");
   fail();
 }
 
 function help() {
-  // npm uses SemVer and that makes ChronVer not display correctly
-  console.log(["ChronVer " + String(version).replace("-", ""),
-    "",
+  process.stdout.write([
     // "................................................................................", // 80 characters
+    asciiArt,
     "A JavaScript implementation of the https://chronver.org specification",
     "Copyright © netop://ウエハ (Paul Anthony Webb)",
     "",
-    "Usage: chronver [options] <version> [<version> [...]]",
+    "Usage: chronver [options] <version>",
     "Prints valid ChronVer versions",
     "",
     "Options:",
@@ -72,9 +77,19 @@ function help() {
     "--init --initialize",
     "        Creates a ChronVer string, defaulting to the present.",
     "",
-    "ChronVer exits upon failure."
+    "ChronVer exits upon failure.",
+    "",
+    "",
+    "",
+    "Examples:",
+    "$ chronver --initialize",
+    "$ chronver --increment month 2030.03.03",
+    "$ chronver --increment package",
+    ""
     // "................................................................................", // 80 characters
   ].join("\n"));
+
+  process.exit(0);
 }
 
 function main() {
@@ -126,15 +141,15 @@ function main() {
   }
 
   if (initialize)
-    versions.push(chronver.initialize().version);
+    versions.push(new chronver());
 
   versions = versions.map(version => coerce ?
-    (chronver.coerce(version) || { version }).version :
+    new chronver({ coerce: version }).version :
     version
-  ).filter(version => chronver.valid(version));
+  ).filter(version => valid(version));
 
   if (increment === "package")
-    return chronver.increment("", increment);
+    return new chronver({ increment: "package" });
 
   if (!versions.length)
     return fail();
@@ -142,24 +157,11 @@ function main() {
   if (increment && versions.length !== 1)
     return failIncrement();
 
-  for (let i = 0, rangeLength = range.length; i < rangeLength; i++) {
-    versions = versions.filter(version => chronver.satisfies(version, range[i]));
-
-    if (!versions.length)
-      return fail();
-  }
-
   return success(versions);
 }
 
-function success(versions) {
+function success(versions: any) {
   return versions
-    .map(version => increment ?
-      chronver.increment(version, increment) :
-      version
-    )
-    .forEach(version => {
-      console.log(version);
-      return version;
-    });
+    .map((version: any) => increment ? new chronver({ increment, version }) : version)
+    .forEach((version: any) => version);
 }

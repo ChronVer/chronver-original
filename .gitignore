@@ -2,8 +2,12 @@
 .DS_Store
 Thumbs.db
 
-# Files
-package-lock.json
-
 # Folders
+dist
 node_modules
+
+# Files
+.env
+*.lock
+*.log
+package-lock.json

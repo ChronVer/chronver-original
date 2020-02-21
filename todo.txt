@@ -1,0 +1,6 @@
+- [ ] Match OS line-ending (https://github.com/ryanve/eol)
+- [ ] Account for five digit years (year 10000, Y2K all over again...again)
+- [ ] Ensure dates are real (February 30th should never happen, unless Earth rotates too far)
+- [ ] Support French
+- [ ] Support Spanish
+- [ ] Support Swahili
