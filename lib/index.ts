@@ -164,7 +164,21 @@ export default class ChronVer {
     let versionChange = null;
     let versionIncrement = null;
 
-    if (!incrementType) {
+    if (!incrementType || incrementType === "package") {
+      if (incrementType === "package") {
+        packageFile = appRoot.resolve("/package.json");
+        // https://stackoverflow.com/a/46190552
+        packageFileData = JSON.parse(readFileSync(packageFile).toString());
+        this.__original = packageFileData.version;
+
+        const { change, day, month, raw, year } = this.parse(packageFileData.version);
+
+        this.change = change;
+        this.day = day;
+        this.month = month;
+        this.year = year;
+      }
+
       switch(true) {
         // Supplied year is less than current year
         // Supplied year is current but supplied month is less than current month
@@ -184,20 +198,6 @@ export default class ChronVer {
         default:
           break;
       }
-    }
-
-    if (incrementType === "package") {
-      packageFile = appRoot.resolve("/package.json");
-      // https://stackoverflow.com/a/46190552
-      packageFileData = JSON.parse(readFileSync(packageFile).toString());
-      this.__original = packageFileData.version;
-
-      const { change, day, month, raw, year } = this.parse(packageFileData.version);
-
-      this.change = change;
-      this.day = day;
-      this.month = month;
-      this.year = year;
     }
 
     if (incrementType === "change") {
@@ -239,6 +239,7 @@ export default class ChronVer {
         break;
 
       case "change":
+      case "package":
         if (typeof this.change === "number")
           this.change++;
         else {
@@ -266,13 +267,6 @@ export default class ChronVer {
     this._format();
 
     if (packageFile) {
-      if (this.__original === this.version) {
-        if (typeof this.change === "number")
-          this.change++;
-
-        this._format();
-      }
-
       packageFileData.version = this.version;
       // Update version in package.json and make it pretty
       writeFileSync(packageFile, JSON.stringify(packageFileData, null, 2) + "\n");

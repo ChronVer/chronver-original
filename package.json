@@ -4,7 +4,7 @@
     "url": "https://webb.page"
   },
   "bin": {
-    "chronver": "dist/bin/chronver.js"
+    "chronver": "./dist/bin/chronver.js"
   },
   "dependencies": {
     "@webb/order-object": "^2020.2.2-1.1",
@@ -23,8 +23,8 @@
     "updates": "^9.3.3"
   },
   "files": [
-    "dist/bin/chronver.js",
-    "dist/lib/index.js"
+    "./dist/bin/chronver.js",
+    "./dist/lib/index.js"
   ],
   "homepage": "https://code.webb.page/ChronVer/chronver",
   "husky": {
@@ -44,7 +44,7 @@
     "versions"
   ],
   "license": "MIT",
-  "main": "dist/lib/index.js",
+  "main": "./dist/lib/index.js",
   "name": "chronver",
   "prettier": "@webb/config-prettier",
   "publishConfig": {
@@ -64,6 +64,6 @@
     "test:typescript": "tsc",
     "test:assert": "ts-node test/index.ts"
   },
-  "types": "dist/lib/index.d.ts",
-  "version": "2020.02.21.1"
+  "types": "./dist/lib/index.d.ts",
+  "version": "2020.02.22"
 }
