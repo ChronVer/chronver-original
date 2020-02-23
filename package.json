@@ -4,7 +4,7 @@
     "url": "https://webb.page"
   },
   "bin": {
-    "chronver": "./bin/chronver.js"
+    "chronver": "bin/chronver.js"
   },
   "dependencies": {
     "@webb/order-object": "^2020.2.2-1.1",
@@ -23,8 +23,8 @@
     "updates": "^9.3.3"
   },
   "files": [
-    "./bin/chronver.js",
-    "./lib/index.js"
+    "bin/chronver.js",
+    "lib/index.js"
   ],
   "homepage": "https://code.webb.page/ChronVer/chronver",
   "husky": {
@@ -44,7 +44,7 @@
     "versions"
   ],
   "license": "MIT",
-  "main": "./lib/index.js",
+  "main": "lib/index.js",
   "name": "chronver",
   "prettier": "@webb/config-prettier",
   "publishConfig": {
@@ -57,17 +57,17 @@
   "scripts": {
     "build": "npm run cleanup && tsc",
     "cleanup": "run-s cleanup:*",
-    "cleanup:bin": "del './bin/chronver.js' './bin/chronver.d.ts'",
-    "cleanup:lib": "del './lib/index.js' './lib/index.d.ts'",
-    "increment": "node ./bin/chronver.js --increment package",
+    "cleanup:bin": "del 'bin/chronver.js' 'bin/chronver.d.ts'",
+    "cleanup:lib": "del 'lib/index.js' 'lib/index.d.ts'",
+    "increment": "node bin/chronver.js --increment package",
     "pretty": "run-s pretty:*",
-    "pretty:bin": "prettier --write './bin/chronver.js' './bin/chronver.d.ts'",
-    "pretty:lib": "prettier --write './lib/index.js' './lib/index.d.ts'",
+    "pretty:bin": "prettier --write 'bin/chronver.js' 'bin/chronver.d.ts'",
+    "pretty:lib": "prettier --write 'lib/index.js' 'lib/index.d.ts'",
     "test": "run-s test:*",
     "test:dependencies": "updates --update ./",
     "test:typescript": "tsc",
     "test:assert": "ts-node test/index.ts"
   },
-  "types": "./lib/index.d.ts",
-  "version": "2020.02.23.3"
+  "types": "lib/index.d.ts",
+  "version": "2020.02.23.4"
 }
