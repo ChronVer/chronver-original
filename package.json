@@ -68,6 +68,6 @@
     "test:typescript": "tsc",
     "test:assert": "ts-node test/index.ts"
   },
-  "types": "./dist/lib/index.d.ts",
-  "version": "2020.02.23"
+  "types": "./lib/index.d.ts",
+  "version": "2020.02.23.1"
 }
