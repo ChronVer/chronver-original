@@ -13,8 +13,8 @@ import Test from "@webb/test";
 
 //  U T I L S
 
-import chronver from "../dist/lib";
-import { processChange, processDay, processMonth } from "../dist/lib";
+import chronver from "../lib/index.js";
+import { processChange, processDay, processMonth } from "../lib/index.js";
 
 
 

@@ -3,11 +3,14 @@
 Thumbs.db
 
 # Folders
-dist
 node_modules
 
 # Files
 .env
 *.lock
 *.log
+bin/chronver.js
+bin/chronver.d.ts
+lib/index.js
+lib/index.d.ts
 package-lock.json
