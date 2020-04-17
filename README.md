@@ -37,7 +37,7 @@ new chronver().version;
 // ^ Returns the current date in ChronVer format
 ```
 
-```json
+```js
 // Here is how a full response looks
 ChronVer {
   change: 0,
