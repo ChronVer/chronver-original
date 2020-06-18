@@ -66,5 +66,5 @@
     "test:assert": "ts-node test/index.ts"
   },
   "types": "lib/index.d.ts",
-  "version": "2020.06.18"
+  "version": "2020.06.18.1"
 }
