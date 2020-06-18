@@ -10,6 +10,10 @@
 $ npm i chronver
 ```
 
+## Requirements
+
+`@chronver/regex` is an evergreen module. 🌲 This module requires an [Active LTS](https://github.com/nodejs/Release) Node version (v12.0.0+).
+
 
 
 ## Usage
